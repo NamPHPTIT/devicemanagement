@@ -21,6 +21,7 @@ urlpatterns = [
     path('update/giveback/<int:id>',giveback.updategiveback, name = 'updategiveback'),
     path('mybooking/<slug:username>/<int:id>/',giveback.giveback, name = 'giveback'),
     path('confirm/<int:id>/',confirm.updateconfirm, name = 'confirmbooked'),
+    path('confirm/rejected/<int:id>/',confirm.updateconfirm, name = 'confirmbooked'),
     path('confirm/',confirm.listconfirm, name = 'confirm'),
     path('project/',views.preaddproject, name ='pre_add_project'),
     path('project/add/',views.addproject, name ='add_project'),

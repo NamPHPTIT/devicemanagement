@@ -28,6 +28,7 @@
        <td>{{ order.todate }}</td>
        <td>{{ order.account.username }}</td>
        <td> <a href="{{order.id}}">Accept</a></td>
+       <td> <a href="rejected/{{order.id}}">Rejected</a></td>
        </tr>
     {% endfor %}
 		</table>

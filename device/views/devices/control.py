@@ -8,8 +8,8 @@ import datetime
 
 device_list = Device.objects.prefetch_related('order_set')\
 .values('code').annotate(c = Count('code'))\
+.filter(~Q(status='Booked')|Q(order__orderstatus='Borrowed'))\
 .values('code', 'name','order__fromdate','order__todate', 'order__reason','order__account__username','type', 'ostype', 'version', 'status','order__orderstatus')\
-.filter(~Q(order__orderstatus='Completed')|Q(status='Free'))\
 .order_by('code')
 
 overdue_count = Order.objects.filter(givebackdate = None).exclude(todate__gt = datetime.date.today()).count

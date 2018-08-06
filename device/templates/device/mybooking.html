@@ -29,7 +29,7 @@
        <td>{{ order.project.name }}</td>
        {%if order.orderstatus == 'Completed' %}
         <td> {{ order.givebackdate }}</td>
-        {% elif order.orderstatus == 'Requesting' %}
+        {% elif order.orderstatus == 'Requesting' or  order.orderstatus == 'Rejected' or  order.orderstatus == 'ORequest' %}
         <td> {{ order.orderstatus }}</td>
       {% else %}
        <td> <a href="{{order.account.username}}/{{order.id}}">Give Back</a></td>
