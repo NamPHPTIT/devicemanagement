@@ -9,11 +9,11 @@ import datetime
 device_list = Device.objects.prefetch_related('order_set')\
 .values('code').annotate(c = Count('code'))\
 .filter(~Q(status='Booked')|Q(order__orderstatus='Borrowed'))\
-.values('code', 'name','order__fromdate','order__todate', 'order__reason','order__account__username','type', 'ostype', 'version', 'status','order__orderstatus')\
+.values('code', 'name','order__fromdate','order__todate', 'order__reason','order__account__username','type', 'ostype', 'version', 'status','order__orderstatus','order__givebackdate')\
 .order_by('code')
 
 overdue_count = Order.objects.filter(givebackdate = None).exclude(todate__gt = datetime.date.today()).count
-
+#overdue_count = device_list.exclude(order__todate = None).filter(order__givebackdate = None).exclude(order__todate__gt = datetime.date.today()).count
 d = Device.objects.all()
 def list_all(request):
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def list_page(request,page):
         return render(request, 'device/listall.html',{'devices' : device_list[((page-1)*5):page*5],'device_count' :d.count,'free_count' :d.filter(status='Free').count,'booked_count' :d.filter(status='Booked').count,'overdue_count' :overdue_count})
 
 def list_function(request,function):
-    # if function == 'overdue':
-    #     return render(request, 'device/listall.html',{'devices' : device_list.filter(order__givebackdate = None).exclude(order__todate__gt = datetime.date.today())})
-    # else :
+    if function == 'overdue':
+        return render(request, 'device/listall.html',{'devices' : device_list.exclude(order__todate = None).filter(order__givebackdate = None).exclude(order__todate__gt = datetime.date.today()),'device_count' :d.count,'free_count' :d.filter(status='Free').count,'booked_count' :d.filter(status='Booked').count,'overdue_count' :overdue_count})
+    else :
         return render(request, 'device/listall.html',{'devices' : device_list.filter(status = function),'device_count' :d.count,'free_count' :d.filter(status='Free').count,'booked_count' :d.filter(status='Booked').count,'overdue_count' :overdue_count})
