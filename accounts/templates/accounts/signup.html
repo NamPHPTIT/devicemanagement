@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Device Detail</title>
+  </head>
+  <body>
+    {% if error %}
+    {{ error }}
+    <br />
+    <br />
+    {% endif %}
+    <h1>SIGN UP</h1>
+
+    <form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    Username:
+    <br />
+    <input type="text" name="username" />
+    <br />
+    Email:
+    <br />
+    <input type="text" name="email" />
+    <br />
+    Password:
+    <br />
+    <input type="password" name="password1" />
+    <br />
+    Password(retype):
+    <br />
+    <input type="password" name="password2" />
+    <br />
+    <br />
+    <input class="btn btn-primary" type="submit" value="SIGN UP" />
+    </form>
+
+  </body>
+</html>

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Device List</h1>
+<p>Number of device : {{device_count}}</p>
+<p>Number of free device : <a href="function=Free">{{free_count}}</a></p>
+<p>Number of booked device : <a href="function=Booked">{{booked_count}}</a></p>
+<p>Number of overdue device : <a href="function=overdue">{{ overdue_count }}</a></p>
+<form method="POST" action="{% url 'list_all' %}" >
+{% csrf_token %}
+    <div class="form-group">
+     <label>Search:</label>
+    <input type="text" name="search" placeholder="Search..">
+    <input class="btn btn-primary" type="submit" value="Search" />
+   </div>
+ </form>
+    <ul>
+      <table class = "table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>OStype</th>
+            <th>Version</th>
+            <th>FromDate</th>
+            <th>ToDate</th>
+            <!-- <th>Project</th> -->
+            <th>Borrower</th>
+            <th>Status</th>
+            <!--<th>Count</th> -->
+        </tr>
+        </thead>
+      {% for device in devices %}
+      <tr>
+      {% if user.is_staff %}
+      <td><a href="detail/{{device.code}}">{{ device.code }}</a></td>
+      {% else %}
+      <td>{{ device.code }}</td>
+      {% endif %}
+       <td>{{device.name}}</td>
+       <td>{{device.type}}</td>
+       <td>{{device.ostype}}</td>
+       <td>{{device.version}}</td>
+       {% if device.order__orderstatus == 'Completed' or device.order__orderstatus == 'ORequest' %}
+       <td></td>
+       <td></td>
+       <td></td>
+       {% else %}
+       <td>{{device.order__fromdate|default_if_none:""}}</td>
+       <td>{{ device.order__todate|default_if_none:""}}</td>
+       <!-- <td>{{device.order__project__name|default_if_none:""}}</td> -->
+       <td>{{ device.order__account__username|default_if_none:""}}</td>
+       {% endif %}
+       <td>
+         {%if device.status == 'Free' %}
+         <a href="order/add/{{device.code}}%{{user.username}}">{{ device.status }}</a>
+         {% else %}
+         {{device.status}}
+         {% endif %}
+       </td>
+       </tr>
+    {% endfor %}
+		</table>
+    </ul>
+  <div align="center">
+      <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="pages=1">1</a></li>
+        <li><a href="pages=2">2</a></li>
+        <li><a href="pages=3">3</a></li>
+        <li><a href="pages=4">4</a></li>
+        <li><a href="#">&raquo;</a></li>
+</ul>
+</div>
+{% endblock %}

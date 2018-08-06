@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Add Supplement</h1>
+    <form method="POST" action="{% url 'sup_add'%}">
+      {% csrf_token %}
+    <ul>
+      <div class="form-group">
+       <label>Project:</label>
+        <select class="form-control">
+            {% for project in projects %}
+            <option value="{{project.id}}"	itemLabel="{{project.name}}">{{project.name}}</option>
+            {% endfor %}
+        </select>
+     </div>
+   <div class="form-group">
+     <label>Requester:</label>
+     <input type="text" class="form-control" id="username" value="{{user.username}}" readonly>
+   </div>
+   <div class="form-group">
+      <label>Device Name:</label>
+      <input type="text" class="form-control" id="devicename">
+    </div>
+    <div class="form-group">
+      <label>Device Type:</label>
+      <input type="text" class="form-control" id="devicetype">
+    </div>
+    <div class="form-group">
+      <label>OS Type:</label>
+      <input type="text" class="form-control" id="ostype">
+    </div>
+    <div class="form-group">
+      <label>Version:</label>
+      <input type="text" class="form-control" id="version">
+    </div>
+    <div class="form-group">
+      <label>Quantity:</label>
+      <input type="number" class="form-control" id="quantity">
+    </div>
+    <div class="form-group">
+        <label>Request Reason:</label>
+        <textarea class="form-control" rows="5" id="reason"></textarea>
+      </div>
+    </ul>
+     <input class="btn btn-primary" type="submit" value="Save" />
+  </form>
+{% endblock %}

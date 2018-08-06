@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Device Detail</title>
+  </head>
+  <body>
+    {% if error %}
+    {{ error }}
+    <br />
+    <br />
+    {% endif %}
+    <h1>LOGIN</h1>
+    <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    username :
+    <br />
+    <input type="text" name="username" />
+    <br />
+    password :
+    <br />
+    <input type="password" name="password" />
+    <br />
+    <br />
+    <input class="btn btn-primary" type="submit" value="LOG IN" />
+    </form>
+  </body>
+</html>

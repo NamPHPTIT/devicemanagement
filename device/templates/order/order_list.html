@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Update Giveback</h1>
+    <ul>
+      <table class = "table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>OStype</th>
+            <th>Version</th>
+            <th>FromDate</th>
+            <th>ToDate</th>
+            <th>Project</th>
+            <th>Accept GiveBack</th>
+        </tr>
+        </thead>
+      {% for order in order_list %}
+      <tr>
+       <td>{{ order.device.code }}</td>
+       <td>{{ order.device.name }}</td>
+       <td>{{ order.device.type }}</td>
+       <td>{{ order.device.ostype }}</td>
+       <td>{{ order.device.version }}</td>
+       <td>{{ order.fromdate }}</td>
+       <td>{{ order.todate }}</td>
+       <td>{{ order.project.name }}</td>
+       <td> <a href="{{order.id}}">Accept</a></td>
+       </tr>
+    {% endfor %}
+		</table>
+    </ul>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Supplement List</h1>
+    <ul>
+      <table class = "table">
+        <thead>
+        <tr>
+            <th>Project</th>
+            <th>Type</th>
+            <th>OStype</th>
+            <th>DeviceName</th>
+            <th>Quantity</th>
+            <th>Version</th>
+            <th>RequestDate</th>
+            <th>ReceiveDate</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Cancel</th>
+            <th>Complete</th>
+        </tr>
+        </thead>
+      {% for sup in sups %}
+      <tr>
+       <td>{{ sup.project.name }}</td>
+       <td>{{ sup.device.type }}</td>
+       <td>{{ sup.device.ostype }}</td>
+       <td>{{ sup.device.name }}</td>
+       <td>{{ sup.quantity }}</td>
+       <td>{{ sup.requestdate }}</td>
+       <td>{{ sup.receivedate }}</td>
+       <td>{{ sup.status }}</td>
+       <td><a href="#">edit</a></td>
+       <td> <a href="#">cancel</a></td>
+       <td> <a href="#">complete</a></td>
+       </tr>
+    {% endfor %}
+		</table>
+    </ul>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Device Detail</h1>
+    <form method="POST" action="{% url 'edit_device' %}" >
+    {% csrf_token %}
+    <ul>
+    <div class="form-group">
+     <label>Code:</label>
+     <input type="text" class="form-control" name="code" value="{{device.code}}" readonly>
+   </div>
+   <div class="form-group">
+     <label>Name:</label>
+     <input type="text" class="form-control" name="name" value="{{device.name}}">
+   </div>
+   <div class="form-group">
+      <label>Type:</label>
+      <input type="text" class="form-control" name="type" value="{{device.type}}">
+    </div>
+    <div class="form-group">
+      <label>OSType:</label>
+      <input type="text" class="form-control" name="ostype" value="{{device.ostype}}" >
+    </div>
+    <div class="form-group">
+      <label>Version:</label>
+      <input type="text" class="form-control" name="version" value="{{device.version}}">
+    </div>
+    <div class="form-group">
+      <label>Status:</label>
+      {% if device.status == 'Booked' %}
+      <input type="text" class="form-control" name="status" value="{{device.status}}" readonly>
+      {% else %}
+      <select class="form-control" name="project">      
+          <option value="Free">Free</option>
+          <option value="Dropped">Dropped</option>
+      </select>
+      {% endif %}
+    </div>
+    </ul>
+     <input class="btn btn-primary" type="submit" value="Save" />
+  </form>
+{% endblock %}

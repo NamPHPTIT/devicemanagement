@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>My Booking</h1>
+    <ul>
+      <table class = "table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>OStype</th>
+            <th>Version</th>
+            <th>FromDate</th>
+            <th>ToDate</th>
+            <th>Project</th>
+            <th>GiveBack</th>
+        </tr>
+        </thead>
+      {% for order in order_list %}
+      <tr>
+       <td>{{ order.device.code }}</td>
+       <td>{{ order.device.name }}</td>
+       <td>{{ order.device.type }}</td>
+       <td>{{ order.device.ostype }}</td>
+       <td>{{ order.device.version }}</td>
+       <td>{{ order.fromdate }}</td>
+       <td>{{ order.todate }}</td>
+       <td>{{ order.project.name }}</td>
+       {%if order.orderstatus == 'Completed' %}
+        <td> {{ order.givebackdate }}</td>
+        {% elif order.orderstatus == 'Requesting' %}
+        <td> {{ order.orderstatus }}</td>
+      {% else %}
+       <td> <a href="{{order.account.username}}/{{order.id}}">Give Back</a></td>
+       {% endif %}
+       </tr>
+    {% endfor %}
+		</table>
+    </ul>
+{% endblock %}
