@@ -10,11 +10,11 @@
     <form method="POST" action="{% url 'add_project' %}" >
     {% csrf_token %}
     <ul>
-    <div class="form-group">
+    <div class="form-group" style="width: 300px">
      <label>Project Name:</label>
      <input type="text" class="form-control" name="name">
    </div>
-   <div class="form-group">
+   <div class="form-group" style="width: 300px">
       <label>Department:</label>
       <select class="form-control" id="department" name ="department">
       {% for de in departments %}
@@ -22,7 +22,7 @@
       {% endfor %}
       </select>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="width: 300px">
        <label>Account:</label>
        <select multiple class="form-control" id="accounts" name ="accounts">
        {% for acc in accounts %}
